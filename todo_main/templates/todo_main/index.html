@@ -43,11 +43,18 @@
             <div class="card-body">
               {{ t.task }}
               <span style="position: relative; float: right">
-                <a class="btn btn-success"
-                  ><i class="fa fa-check"></i> Mark as Done</a
+                <a
+                  class="btn btn-success"
+                  href="{% url 'mark_as_completed' t.pk %}"
                 >
-                <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                <a class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                  <i class="fa fa-check"></i> Mark as Done
+                </a>
+                <a href="{% url 'delete_task' t.pk %}" class="btn btn-danger"
+                  ><i class="fa fa-trash"></i
+                ></a>
+                <a class="btn btn-primary" href="{% url 'edit_task' t.pk %}">
+                  <i class="fa fa-pencil"></i>
+                </a>
               </span>
             </div>
           </div>
@@ -56,9 +63,23 @@
         <div class="col-md-5 col-lg-5">
           <h5>Completed Tasks</h5>
           <!-- List of all the tasks that have completed -->
+          {% for t in completed_tasks %}
           <div class="card m-1">
-            <div class="card-body">This is the completed task.</div>
+            <div class="card-body">
+              <div>{{ t.task }}</div>
+              <div class="mt-2">
+                <a
+                  class="btn btn-warning"
+                  href="{% url 'mark_as_uncompleted' t.pk %}"
+                >
+                  <i class="fa fa-undo"></i>
+                  Undo
+                </a>
+                <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+              </div>
+            </div>
           </div>
+          {% endfor %}
         </div>
       </div>
       <div class="row">
